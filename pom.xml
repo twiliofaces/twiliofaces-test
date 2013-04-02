@@ -124,6 +124,7 @@
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<profiles>
 
@@ -136,7 +137,7 @@
 				<dependency>
 					<groupId>org.jboss.spec</groupId>
 					<artifactId>jboss-javaee-6.0</artifactId>
-					<version>1.0.0.Final</version>
+					<version>3.0.0.Final</version>
 					<type>pom</type>
 					<scope>provided</scope>
 				</dependency>
@@ -157,6 +158,14 @@
 				the JBOSS_HOME environment variable -->
 			<build>
 				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<systemProperties>
+								<jboss.version>${version.jbossas_7}</jboss.version>
+							</systemProperties>
+						</configuration>
+					</plugin>
 					<plugin>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
