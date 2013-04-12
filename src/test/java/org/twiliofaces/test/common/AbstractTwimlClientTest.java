@@ -1,11 +1,19 @@
 package org.twiliofaces.test.common;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -25,9 +33,11 @@ public abstract class AbstractTwimlClientTest {
 	URL deploymentUrl;
 
 	static String TWIML_FOLDER = "src/test/resources/twiml/";
+	static String XSD_FOLDER = "src/test/resources/xsd/";
 
 	private String jsfPage;
 	private String twimlFile;
+	private String xsdFile;
 	private Map<String, String> parameters;
 
 	@Deployment
@@ -88,6 +98,21 @@ public abstract class AbstractTwimlClientTest {
 		return content.trim();
 	}
 
+	protected String getXsd() throws Exception {
+		String content = null;
+		File file = new File(XSD_FOLDER + getXsdFile());
+		try {
+			FileReader reader = new FileReader(file);
+			char[] chars = new char[(int) file.length()];
+			reader.read(chars);
+			content = new String(chars);
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return content.trim();
+	}
+
 	protected ClientResponse<String> execute() throws Exception {
 		ClientRequest clientRequest = new ClientRequest(
 				deploymentUrl.toString() + getJsfPage());
@@ -98,6 +123,32 @@ public abstract class AbstractTwimlClientTest {
 			}
 		}
 		return clientRequest.post(String.class);
+	}
+
+	public boolean validateAgainstXSD() throws Exception {
+		InputStream xmlIs = new ByteArrayInputStream(getTwiml().getBytes());
+		InputStream xsdIs = new ByteArrayInputStream(getXsd().getBytes());
+		return validateAgainstXSD(xmlIs, xsdIs);
+	}
+
+	public static boolean validateAgainstXSD(String xml, String xsd) {
+		InputStream xmlIs = new ByteArrayInputStream(xml.getBytes());
+		InputStream xsdIs = new ByteArrayInputStream(xsd.getBytes());
+		return validateAgainstXSD(xmlIs, xsdIs);
+	}
+
+	public static boolean validateAgainstXSD(InputStream xml, InputStream xsd) {
+		try {
+			SchemaFactory factory = SchemaFactory
+					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = factory.newSchema(new StreamSource(xsd));
+			Validator validator = schema.newValidator();
+			validator.validate(new StreamSource(xml));
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 	public String getJsfPage() {
@@ -124,6 +175,14 @@ public abstract class AbstractTwimlClientTest {
 
 	public void setParameters(Map<String, String> parameters) {
 		this.parameters = parameters;
+	}
+
+	public String getXsdFile() {
+		return xsdFile;
+	}
+
+	public void setXsdFile(String xsdFile) {
+		this.xsdFile = xsdFile;
 	}
 
 }

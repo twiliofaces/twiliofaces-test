@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.resteasy.client.ClientResponse;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.twiliofaces.test.common.AbstractTwimlClientTest;
@@ -13,6 +14,12 @@ import org.twiliofaces.test.common.AbstractTwimlClientTest;
 @RunAsClient
 public class AllTwimlTest extends AbstractTwimlClientTest {
 
+	@Before
+	public void init() {
+		setXsdFile("twiml.xsd");
+
+	}
+
 	@Test
 	public void testClient() throws Exception {
 		setJsfPage("client.jsf");
@@ -20,6 +27,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -29,6 +37,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -38,6 +47,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -47,6 +57,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -56,6 +67,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -65,6 +77,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -74,6 +87,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -83,6 +97,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -92,6 +107,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -101,6 +117,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -110,6 +127,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -119,6 +137,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -128,6 +147,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -137,6 +157,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -146,6 +167,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -155,6 +177,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 	@Test
@@ -164,6 +187,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		ClientResponse<String> result = execute();
 		Assert.assertEquals(200, result.getStatus());
 		Assert.assertEquals(getTwiml(), result.getEntity().trim());
+		Assert.assertTrue(validateAgainstXSD());
 	}
 
 }
