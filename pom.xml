@@ -7,7 +7,7 @@
 
 	<groupId>org.twiliofaces</groupId>
 	<artifactId>twiliofaces-test</artifactId>
-	<version>0.0.1</version>
+	<version>1.2.3-SNAPSHOT</version>
 
 	<name>twiliofaces-test</name>
 	<url>http://twiliofaces.org/</url>
@@ -84,9 +84,10 @@
 		<dependency>
 			<groupId>org.twiliofaces</groupId>
 			<artifactId>twiliofaces</artifactId>
-			<version>1.0.0</version>
+			<version>1.2.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

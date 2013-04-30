@@ -26,6 +26,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.twiliofaces.test.request.TwilioEvaluator;
+import org.twiliofaces.test.twilioscope.TwilioScopeController;
 
 public abstract class AbstractTwimlClientTest {
 
@@ -45,10 +46,11 @@ public abstract class AbstractTwimlClientTest {
 
 		MavenDependencyResolver resolver = DependencyResolvers.use(
 				MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
-		WebArchive jar = ShrinkWrap
+		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "twilio.war")
 				.addClass(AbstractTwimlClientTest.class)
 				.addPackage(TwilioEvaluator.class.getPackage().getName())
+				.addPackage(TwilioScopeController.class.getPackage().getName())
 				.addAsLibraries(
 						resolver.artifact("org.twiliofaces:twiliofaces")
 								.resolveAsFiles())
@@ -59,6 +61,7 @@ public abstract class AbstractTwimlClientTest {
 						resolver.artifact("com.twilio.sdk:twilio-java-sdk")
 								.resolveAsFiles())
 				.addAsWebResource("pages/client.xhtml")
+				.addAsWebResource("pages/clientWithExtension.xhtml")
 				.addAsWebResource("pages/client.xhtml")
 				.addAsWebResource("pages/conference.xhtml")
 				.addAsWebResource("pages/dial.xhtml")
@@ -66,6 +69,7 @@ public abstract class AbstractTwimlClientTest {
 				.addAsWebResource("pages/gather.xhtml")
 				.addAsWebResource("pages/hangup.xhtml")
 				.addAsWebResource("pages/leave.xhtml")
+				.addAsWebResource("pages/leaveWithExtension.xhtml")
 				.addAsWebResource("pages/number.xhtml")
 				.addAsWebResource("pages/pause.xhtml")
 				.addAsWebResource("pages/play.xhtml")
@@ -79,8 +83,8 @@ public abstract class AbstractTwimlClientTest {
 				.addAsWebInfResource("common/faces-config.xml",
 						"faces-config.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-
-		return jar;
+		// System.out.println(war.toString(true));
+		return war;
 	}
 
 	protected String getTwiml() throws Exception {
@@ -119,6 +123,19 @@ public abstract class AbstractTwimlClientTest {
 		if (getParameters().size() > 0) {
 			for (String key : getParameters().keySet()) {
 				String value = getParameters().get(key);
+				clientRequest.formParameter(key, value);
+			}
+		}
+		return clientRequest.post(String.class);
+	}
+
+	public ClientResponse<String> execute(String jsfPage,
+			Map<String, String> parameters) throws Exception {
+		ClientRequest clientRequest = new ClientRequest(
+				deploymentUrl.toString() + jsfPage);
+		if (parameters.size() > 0) {
+			for (String key : parameters.keySet()) {
+				String value = parameters.get(key);
 				clientRequest.formParameter(key, value);
 			}
 		}
@@ -175,6 +192,14 @@ public abstract class AbstractTwimlClientTest {
 
 	public void setParameters(Map<String, String> parameters) {
 		this.parameters = parameters;
+	}
+
+	public void addParameter(String key, String value) {
+		getParameters().put(key, value);
+	}
+
+	public void clearParameters() {
+		this.parameters = null;
 	}
 
 	public String getXsdFile() {

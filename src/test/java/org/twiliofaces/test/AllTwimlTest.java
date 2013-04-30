@@ -1,5 +1,8 @@
 package org.twiliofaces.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.Assert;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -18,6 +21,90 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 	public void init() {
 		setXsdFile("twiml.xsd");
 
+	}
+
+	@Test
+	public void testExtension() throws Exception {
+
+		Map<String, String> callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "1");
+		ClientResponse<String> response = execute("leaveWithExtension.jsf",
+				callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "2");
+		response = execute("leaveWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "3");
+		response = execute("leaveWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "4");
+		response = execute("leaveWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "5");
+		response = execute("leaveWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "1");
+		response = execute("clientWithExtension.jsf",
+				callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "2");
+		response = execute("clientWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "3");
+		response = execute("clientWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "4");
+		response = execute("clientWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "5");
+		response = execute("clientWithExtension.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "1");
+		response = execute("statusCallback.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "2");
+		response = execute("statusCallback.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "3");
+		response = execute("statusCallback.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "4");
+		response = execute("statusCallback.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		// **************************
+		callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "5");
+		response = execute("statusCallback.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
 	}
 
 	@Test

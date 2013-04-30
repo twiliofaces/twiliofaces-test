@@ -7,9 +7,9 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.twiliofaces.annotations.From;
-import org.twiliofaces.annotations.RecordingUrl;
 import org.twiliofaces.annotations.TwilioRequestParams;
+import org.twiliofaces.annotations.notification.From;
+import org.twiliofaces.annotations.notification.RecordingUrl;
 import org.twiliofaces.request.TwilioRequestParamsMap;
 
 @Named
