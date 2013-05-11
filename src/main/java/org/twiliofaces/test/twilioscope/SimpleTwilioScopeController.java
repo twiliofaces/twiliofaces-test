@@ -12,9 +12,7 @@ import org.twiliofaces.extension.TwilioScoped;
 
 @TwilioScope
 @Named
-public class TwilioScopeController implements
-// TwilioScoped,
-		Serializable {
+public class SimpleTwilioScopeController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,12 +22,11 @@ public class TwilioScopeController implements
 
 	int count = 0;
 
-	public TwilioScopeController() {
+	public SimpleTwilioScopeController() {
 		System.out.println("TwilioScopeController: " + new Date() + " - "
 				+ getClass());
 	}
 
-	//	@Override
 	public String getCallSid() {
 		// TODO Auto-generated method stub
 		return callSid;
