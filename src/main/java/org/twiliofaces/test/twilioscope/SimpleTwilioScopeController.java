@@ -8,7 +8,6 @@ import javax.inject.Named;
 
 import org.twiliofaces.annotations.TwilioScope;
 import org.twiliofaces.annotations.notification.CallSid;
-import org.twiliofaces.extension.TwilioScoped;
 
 @TwilioScope
 @Named

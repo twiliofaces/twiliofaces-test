@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:tf="http://twiliofaces.org/twiliofaces">
+
+<h:head>
+	<title>Twilio Client Call</title>
+
+</h:head>
+<h:body>
+	<tf:jsClient token="#{twilioJsClient.flowerToken}">
+		<f:facet name="setup"></f:facet>
+		<f:facet name="ready">
+		 $('#status').text('Ready to start recording');
+		</f:facet>
+		<f:facet name="offline">
+		 $('#status').text('Offline');
+		</f:facet>
+		<f:facet name="incoming"></f:facet>
+		<f:facet name="cancel"></f:facet>
+		<f:facet name="connect">
+		 connection=conn;
+        $('#status').text("On Air");
+        $('#status').css('color', 'red');
+        toggleCallStatus();
+		</f:facet>
+		<f:facet name="disconnect">
+		 $('#status').html('Recording ended<br />
+			<a href="show_recordings.php">view recording list</a>');
+        $('#status').css('color', 'black');
+        toggleCallStatus();
+		</f:facet>
+		<f:facet name="presence"></f:facet>
+		<f:facet name="error">
+		 $('#status').text(error);
+		</f:facet>
+		<f:facet name="javascript">
+		$("#call").click(function() {  
+        	Twilio.Device.connect();
+    	});
+    	$("#hangup").click(function() {  
+        	connection.sendDigits("#");
+    	});
+    	function toggleCallStatus(){
+        $('#call').toggle();
+        $('#hangup').toggle();
+    }
+    	</f:facet>
+	</tf:jsClient>
+
+	<div align="center">
+		<!-- @start snippet -->
+		<h3>Create a Recording</h3>
+		<input type="button" id="call" value="Begin Recording" /> <input
+			type="button" id="hangup" value="Stop Recording"
+			style="display: none;" />
+		<div id="status">Offline</div>
+		<!-- @end snippet -->
+	</div>
+
+</h:body>
+</html>

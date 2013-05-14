@@ -80,6 +80,7 @@ public abstract class AbstractTwimlClientTest {
 				.addAsWebResource("pages/say.xhtml")
 				.addAsWebResource("pages/sip.xhtml")
 				.addAsWebResource("pages/sms.xhtml")
+				.addAsWebResource("pages/jsClient.xhtml")
 				.addAsWebInfResource("common/faces-config.xml",
 						"faces-config.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

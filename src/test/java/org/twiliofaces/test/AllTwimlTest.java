@@ -24,6 +24,15 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 	}
 
 	@Test
+	public void testJsClient() throws Exception {
+		Map<String, String> callSidParams = new HashMap<String, String>();
+		callSidParams.put("CallSid", "1");
+		ClientResponse<String> response = execute("jsClient.jsf", callSidParams);
+		Assert.assertEquals(200, response.getStatus());
+		System.out.println(response.getEntity().trim());
+	}
+
+	@Test
 	public void testExtension() throws Exception {
 
 		Map<String, String> callSidParams = new HashMap<String, String>();
@@ -55,8 +64,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest {
 		// **************************
 		callSidParams = new HashMap<String, String>();
 		callSidParams.put("CallSid", "1");
-		response = execute("clientWithExtension.jsf",
-				callSidParams);
+		response = execute("clientWithExtension.jsf", callSidParams);
 		Assert.assertEquals(200, response.getStatus());
 		// **************************
 		callSidParams = new HashMap<String, String>();
