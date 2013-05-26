@@ -9,10 +9,7 @@
 
 <h:head>
 	<title>Twilio Client Call</title>
-
-</h:head>
-<h:body>
-	<tf:jsClient token="#{twilioJsClient.flowerToken}">
+	<tf:jsClient token="#{twilioJsClient.flowerToken}" withoutJs="true">
 		<f:facet name="setup"></f:facet>
 		<f:facet name="ready">
 		 $('#status').text('Ready to start recording');
@@ -46,11 +43,14 @@
         	connection.sendDigits("#");
     	});
     	function toggleCallStatus(){
-        $('#call').toggle();
-        $('#hangup').toggle();
-    }
+        	$('#call').toggle();
+        	$('#hangup').toggle();
+    	}
     	</f:facet>
 	</tf:jsClient>
+</h:head>
+<h:body>
+
 
 	<div align="center">
 		<!-- @start snippet -->
