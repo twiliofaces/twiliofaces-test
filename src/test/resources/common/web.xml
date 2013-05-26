@@ -18,22 +18,22 @@
 
 	<context-param>
 		<param-name>TWILIO_SID</param-name>
-		<param-value>AC2999a90e54ebe0bdab34fab15f241040</param-value>
+		<param-value>xxxx</param-value>
 	</context-param>
 
 
 	<context-param>
 		<param-name>TWILIO_TOKEN</param-name>
-		<param-value>e64ab5aad9596459bed149a29fcb22fa</param-value>
+		<param-value>xx</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>TWILIO_NUMBER</param-name>
-		<param-value>390909100010</param-value>
+		<param-value>xxxx</param-value>
 	</context-param>
 	<context-param>
 		<param-name>APPLICATION_SID</param-name>
-		<param-value>CN68ffe9f89aec5916c2780b72844d350c</param-value>
+		<param-value>xxxxx</param-value>
 	</context-param>
 
 </web-app>
