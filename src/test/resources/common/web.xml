@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>/index.htm</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>TWILIO_SID</param-name>
+		<param-value>AC2999a90e54ebe0bdab34fab15f241040</param-value>
+	</context-param>
+
+
+	<context-param>
+		<param-name>TWILIO_TOKEN</param-name>
+		<param-value>e64ab5aad9596459bed149a29fcb22fa</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>TWILIO_NUMBER</param-name>
+		<param-value>390909100010</param-value>
+	</context-param>
+	<context-param>
+		<param-name>APPLICATION_SID</param-name>
+		<param-value>CN68ffe9f89aec5916c2780b72844d350c</param-value>
+	</context-param>
+
+</web-app>

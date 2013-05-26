@@ -1,6 +1,7 @@
 package org.twiliofaces.test.twilioscope;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.twiliofaces.annotations.configuration.TwilioClientToken;
@@ -9,10 +10,12 @@ import org.twiliofaces.annotations.configuration.TwilioClientToken;
 @Named
 public class TwilioJsClient {
 
-	@TwilioClientToken(client = "client")
+	@Inject
+	@TwilioClientToken(client = "twiliofaces")
 	String flowerToken;
 
 	public TwilioJsClient() {
+		System.out.println("COSTRUISCO");
 	}
 
 	public void log() {

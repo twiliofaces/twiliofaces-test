@@ -83,8 +83,9 @@ public abstract class AbstractTwimlClientTest {
 				.addAsWebResource("pages/jsClient.xhtml")
 				.addAsWebInfResource("common/faces-config.xml",
 						"faces-config.xml")
+				.addAsWebInfResource("common/web.xml", "web.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-		// System.out.println(war.toString(true));
+		System.out.println(war.toString(true));
 		return war;
 	}
 
