@@ -8,44 +8,47 @@
 	xmlns:tf="http://twiliofaces.org/twiliofaces">
 
 <h:head>
+	<f:metadata>
+		<f:viewParam name="name" value="#{loginController.name}" />
+	</f:metadata>
 	<title>Twilio Client Call</title>
 	<tf:jsClient token="#{twilioJsClient.flowerToken}" withoutJs="true">
 		<f:facet name="setup"></f:facet>
 		<f:facet name="ready">
-		 $('#status').text('Ready to start recording');
+		 		$('#status').text('Ready to start recording');
 		</f:facet>
 		<f:facet name="offline">
-		 $('#status').text('Offline');
+		 	$('#status').text('Offline');
 		</f:facet>
 		<f:facet name="incoming"></f:facet>
 		<f:facet name="cancel"></f:facet>
 		<f:facet name="connect">
-		 connection=conn;
-        $('#status').text("On Air");
-        $('#status').css('color', 'red');
-        toggleCallStatus();
+		 connectn=conn;
+        		$('#status').text("On Air");
+        		$('#status').css('color', 'red');
+        		toggleCallStatus();
 		</f:facet>
 		<f:facet name="disconnect">
-		 $('#status').html('Recording ended<br />
+		 		$('#status').html('Recording ended<br />
 			<a href="show_recordings.php">view recording list</a>');
-        $('#status').css('color', 'black');
+				$('#status').css('color', 'black');
         toggleCallStatus();
 		</f:facet>
 		<f:facet name="presence"></f:facet>
 		<f:facet name="error">
-		 $('#status').text(error);
+		 		$('#status').text(error);
 		</f:facet>
 		<f:facet name="javascript">
-		$("#call").click(function() {  
-        	Twilio.Device.connect();
-    	});
-    	$("#hangup").click(function() {  
-        	connection.sendDigits("#");
-    	});
-    	function toggleCallStatus(){
-        	$('#call').toggle();
-        	$('#hangup').toggle();
-    	}
+				$("#call").click(function() {  
+		        	Twilio.Device.connect();
+		    	});
+		    	$("#hangup").click(function() {  
+		        	connection.sendDigits("#");
+		    	});
+		    	function toggleCallStatus(){
+		        	$('#call').toggle();
+		        	$('#hangup').toggle();
+		    	}
     	</f:facet>
 	</tf:jsClient>
 </h:head>

@@ -6,34 +6,38 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.twiliofaces.annotations.TwilioScope;
 import org.twiliofaces.annotations.notification.CallSid;
+import org.twiliofaces.annotations.scope.TwilioScope;
 
 @TwilioScope
 @Named
-public class SimpleTwilioScopeController implements Serializable {
+public class SimpleTwilioScopeController implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	@Inject
-	@CallSid
-	String callSid;
+   @Inject
+   @CallSid
+   String callSid;
 
-	int count = 0;
+   int count = 0;
 
-	public SimpleTwilioScopeController() {
-		System.out.println("TwilioScopeController: " + new Date() + " - "
-				+ getClass());
-	}
+   public SimpleTwilioScopeController()
+   {
+      System.out.println("TwilioScopeController: " + new Date() + " - "
+               + getClass());
+   }
 
-	public String getCallSid() {
-		// TODO Auto-generated method stub
-		return callSid;
-	}
+   public String getCallSid()
+   {
+      // TODO Auto-generated method stub
+      return callSid;
+   }
 
-	public void log() {
-		count++;
-		System.out.println("CALL SID: " + getCallSid() + " count: " + count);
-	}
+   public void log()
+   {
+      count++;
+      System.out.println("CALL SID: " + getCallSid() + " count: " + count);
+   }
 
 }

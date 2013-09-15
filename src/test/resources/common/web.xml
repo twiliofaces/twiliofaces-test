@@ -16,7 +16,7 @@
 		<welcome-file>/index.htm</welcome-file>
 	</welcome-file-list>
 
-	<context-param>
+	<!-- <context-param>
 		<param-name>TWILIO_SID</param-name>
 		<param-value>xxxx</param-value>
 	</context-param>
@@ -34,6 +34,6 @@
 	<context-param>
 		<param-name>APPLICATION_SID</param-name>
 		<param-value>xxxxx</param-value>
-	</context-param>
+	</context-param> -->
 
 </web-app>

@@ -10,39 +10,44 @@ import javax.inject.Named;
 import org.twiliofaces.annotations.TwilioRequestParams;
 import org.twiliofaces.annotations.notification.From;
 import org.twiliofaces.annotations.notification.RecordingUrl;
-import org.twiliofaces.request.TwilioRequestParamsMap;
+import org.twiliofaces.request.pojo.TwilioRequestMap;
 
 @Named
 @RequestScoped
-public class TwilioEvaluator implements Serializable {
+public class TwilioEvaluator implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	@From
-	@Inject
-	private String from;
+   @From
+   @Inject
+   private String from;
 
-	@Inject
-	@RecordingUrl
-	private String recordingUrl;
+   @Inject
+   @RecordingUrl
+   private String recordingUrl;
 
-	@Inject
-	@TwilioRequestParams
-	private TwilioRequestParamsMap twilioRequestParamsMap;
+   @Inject
+   @TwilioRequestParams
+   private TwilioRequestMap twilioRequestParamsMap;
 
-	public TwilioEvaluator() {
-	}
+   public TwilioEvaluator()
+   {
+   }
 
-	public void init(ComponentSystemEvent event) {
-		System.out.println("twilioRequestParamsMap:" + twilioRequestParamsMap);
-	}
+   public void init(ComponentSystemEvent event)
+   {
+      System.out.println("twilioRequestParamsMap:" + twilioRequestParamsMap);
+   }
 
-	public String getFrom() {
-		return from;
-	}
+   public String getFrom()
+   {
+      return from;
+   }
 
-	public String getRecordingUrl() {
-		return recordingUrl;
-	}
+   public String getRecordingUrl()
+   {
+      return recordingUrl;
+   }
 
 }
