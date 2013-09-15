@@ -5,6 +5,7 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.resteasy.client.ClientResponse;
@@ -12,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.twiliofaces.test.common.AbstractTwimlClientTest;
+import org.twiliofaces.test.common.TwilioSmsEmulator;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -26,6 +28,15 @@ public class AllTwimlTest extends AbstractTwimlClientTest
    }
 
    @Test
+   public void testSendSmsToMdb() throws Exception
+   {
+      PostMethod response = TwilioSmsEmulator.sendMsgTest("prova");
+      Assert.assertEquals(200, response.getStatusCode());
+      Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>  <Response></Response>", response
+               .getResponseBodyAsString().trim());
+   }
+
+   @Test
    public void testJsClient() throws Exception
    {
       Map<String, String> callSidParams = new HashMap<String, String>();
@@ -33,7 +44,7 @@ public class AllTwimlTest extends AbstractTwimlClientTest
       callSidParams.put("name", "fiorenzo");
       ClientResponse<String> response = execute("jsClient.jsf", callSidParams);
       Assert.assertEquals(200, response.getStatus());
-      System.out.println(response.getEntity().trim());
+      // System.out.println(response.getEntity().trim());
    }
 
    @Test

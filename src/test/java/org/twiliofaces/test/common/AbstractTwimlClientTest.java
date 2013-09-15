@@ -25,6 +25,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.twiliofaces.test.jms.SmsReceiverMDB;
 import org.twiliofaces.test.request.TwilioEvaluator;
 import org.twiliofaces.test.service.TwilioStartupTest;
 import org.twiliofaces.test.twilioscope.TwilioScopeController;
@@ -48,7 +49,7 @@ public abstract class AbstractTwimlClientTest
    public static Archive<?> createDeployment1()
    {
       return (ShrinkWrap.createFromZipFile(ResourceAdapterArchive.class, new File(
-               "src/test/resources/ra/twilio-sms-ra-0.0.1-SNAPSHOT.rar")));
+               "src/test/resources/ra/twiliofaces-sms-ra-0.0.1-SNAPSHOT.rar")));
    }
 
    @Deployment(name = "createDeployment2", order = 2)
@@ -59,6 +60,7 @@ public abstract class AbstractTwimlClientTest
                .addClass(AbstractTwimlClientTest.class)
                .addPackage(TwilioEvaluator.class.getPackage().getName())
                .addPackage(TwilioScopeController.class.getPackage().getName())
+               .addPackage(SmsReceiverMDB.class.getPackage().getName())
                .addPackage(TwilioStartupTest.class.getPackage().getName());
 
       List<String> deps = new ArrayList<String>();
@@ -69,7 +71,6 @@ public abstract class AbstractTwimlClientTest
                .loadPomFromFile("pom.xml").resolve(deps).withTransitivity().asFile();
       for (File file : files)
       {
-         System.out.println(file);
          war.addAsLibraries(file);
       }
 
@@ -97,6 +98,7 @@ public abstract class AbstractTwimlClientTest
                .addAsWebInfResource("common/faces-config.xml",
                         "faces-config.xml")
                .addAsWebInfResource("common/web.xml", "web.xml")
+               .addAsWebInfResource("common/jboss-deployment-structure.xml", "jboss-deployment-structure.xml")
                .addAsResource("common/accounts.properties", "accounts.properties")
                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
       return war;

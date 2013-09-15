@@ -16,24 +16,28 @@
 		<welcome-file>/index.htm</welcome-file>
 	</welcome-file-list>
 
-	<!-- <context-param>
-		<param-name>TWILIO_SID</param-name>
-		<param-value>xxxx</param-value>
-	</context-param>
+	<servlet>
+		<servlet-name>NettyTunnelingServlet</servlet-name>
+		<servlet-class>org.jboss.netty.channel.socket.http.HttpTunnelingServlet</servlet-class>
+		<!-- The name of the channel, this should be a registered local channel. 
+			See LocalTransportRegister. -->
+		<init-param>
+			<param-name>endpoint</param-name>
+			<param-value>local:0.0.0.0</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>NettyTunnelingServlet</servlet-name>
+		<url-pattern>/tunnel</url-pattern>
+	</servlet-mapping>
 
 
-	<context-param>
-		<param-name>TWILIO_TOKEN</param-name>
-		<param-value>xx</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>TWILIO_NUMBER</param-name>
-		<param-value>xxxx</param-value>
-	</context-param>
-	<context-param>
-		<param-name>APPLICATION_SID</param-name>
-		<param-value>xxxxx</param-value>
-	</context-param> -->
+	<!-- <context-param> <param-name>TWILIO_SID</param-name> <param-value>xxxx</param-value> 
+		</context-param> <context-param> <param-name>TWILIO_TOKEN</param-name> <param-value>xx</param-value> 
+		</context-param> <context-param> <param-name>TWILIO_NUMBER</param-name> <param-value>xxxx</param-value> 
+		</context-param> <context-param> <param-name>APPLICATION_SID</param-name> 
+		<param-value>xxxxx</param-value> </context-param> -->
 
 </web-app>
