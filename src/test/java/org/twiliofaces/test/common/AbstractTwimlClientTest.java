@@ -5,8 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
@@ -16,15 +17,14 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.twiliofaces.test.request.TwilioEvaluator;
 import org.twiliofaces.test.service.TwilioStartupTest;
 import org.twiliofaces.test.twilioscope.TwilioScopeController;
@@ -32,8 +32,8 @@ import org.twiliofaces.test.twilioscope.TwilioScopeController;
 public abstract class AbstractTwimlClientTest
 {
 
-   @ArquillianResource
-   URL deploymentUrl;
+   // @ArquillianResource
+   // URL deploymentUrl;
 
    static String TWIML_FOLDER = "src/test/resources/twiml/";
    static String XSD_FOLDER = "src/test/resources/xsd/";
@@ -42,29 +42,38 @@ public abstract class AbstractTwimlClientTest
    private String twimlFile;
    private String xsdFile;
    private Map<String, String> parameters;
+   private Object deploymentUrl = "http://localhost:8080/twilio/";
 
-   @Deployment
-   public static Archive<?> createDeployment()
+   @Deployment(name = "createDeployment1", order = 1)
+   public static Archive<?> createDeployment1()
    {
+      return (ShrinkWrap.createFromZipFile(ResourceAdapterArchive.class, new File(
+               "src/test/resources/ra/twilio-sms-ra-0.0.1-SNAPSHOT.rar")));
+   }
 
-      MavenDependencyResolver resolver = DependencyResolvers.use(
-               MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+   @Deployment(name = "createDeployment2", order = 2)
+   public static Archive<?> createDeployment2()
+   {
       WebArchive war = ShrinkWrap
                .create(WebArchive.class, "twilio.war")
                .addClass(AbstractTwimlClientTest.class)
                .addPackage(TwilioEvaluator.class.getPackage().getName())
                .addPackage(TwilioScopeController.class.getPackage().getName())
-               .addPackage(TwilioStartupTest.class.getPackage().getName())
-               .addAsLibraries(
-                        resolver.artifact("org.twiliofaces:twiliofaces")
-                                 .resolveAsFiles())
-               .addAsLibraries(
-                        resolver.artifact("org.jboss.resteasy:resteasy-jaxrs")
-                                 .resolveAsFiles())
-               .addAsLibraries(
-                        resolver.artifact("com.twilio.sdk:twilio-java-sdk")
-                                 .resolveAsFiles())
-               .addAsWebResource("pages/client.xhtml")
+               .addPackage(TwilioStartupTest.class.getPackage().getName());
+
+      List<String> deps = new ArrayList<String>();
+      deps.add("org.twiliofaces:twiliofaces");
+      deps.add("org.jboss.resteasy:resteasy-jaxrs");
+      deps.add("com.twilio.sdk:twilio-java-sdk");
+      File[] files = Maven.resolver()
+               .loadPomFromFile("pom.xml").resolve(deps).withTransitivity().asFile();
+      for (File file : files)
+      {
+         System.out.println(file);
+         war.addAsLibraries(file);
+      }
+
+      war.addAsWebResource("pages/client.xhtml")
                .addAsWebResource("pages/clientWithExtension.xhtml")
                .addAsWebResource("pages/client.xhtml")
                .addAsWebResource("pages/conference.xhtml")
