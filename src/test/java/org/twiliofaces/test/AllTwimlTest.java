@@ -5,7 +5,6 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.resteasy.client.ClientResponse;
@@ -30,10 +29,11 @@ public class AllTwimlTest extends AbstractTwimlClientTest
    @Test
    public void testSendSmsToMdb() throws Exception
    {
-      PostMethod response = TwilioSmsEmulator.sendMsgTest("prova");
-      Assert.assertEquals(200, response.getStatusCode());
-      Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>  <Response></Response>", response
-               .getResponseBodyAsString().trim());
+      TwilioSmsEmulator twilioSmsEmulator = new TwilioSmsEmulator();
+      twilioSmsEmulator.setUrl(deploymentUrl + "tunnel").emulateSms("prova");
+      Assert.assertEquals(200, twilioSmsEmulator.getStatusCode());
+      Assert.assertEquals(smsTwimlResponse, twilioSmsEmulator
+               .getEntity().trim());
    }
 
    @Test

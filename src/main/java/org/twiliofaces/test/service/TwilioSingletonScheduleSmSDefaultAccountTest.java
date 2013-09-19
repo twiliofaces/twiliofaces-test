@@ -7,14 +7,14 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 
-import org.twiliofaces.request.TwilioSmsSender;
+import org.twiliofaces.cdi.doers.Sender;
 
 @Singleton
-public class TwilioStartupTest
+public class TwilioSingletonScheduleSmSDefaultAccountTest
 {
    Logger logger = Logger.getLogger(getClass().getName());
    @Inject
-   TwilioSmsSender twilioSmsSender;
+   Sender sender;
 
    @PostConstruct
    public void start()
@@ -26,6 +26,8 @@ public class TwilioStartupTest
             "alle 4 di notte di ogni primo del mese")
    public void test()
    {
-      logger.info("accountSid: " + twilioSmsSender.getAccountSid());
+      logger.info("accountSid: " + sender.getAccountSid());
+      logger.info("authToken: " + sender.getAuthToken());
+      logger.info("number: " + sender.getFrom());
    }
 }

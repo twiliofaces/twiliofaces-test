@@ -4,7 +4,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.twiliofaces.annotations.configuration.TwilioClientToken;
+import org.twiliofaces.inject.configuration.TwilioCapabilityToken;
+
 
 @RequestScoped
 @Named
@@ -12,7 +13,7 @@ public class TwilioJsClient
 {
 
    @Inject
-   @TwilioClientToken(client = "#{loginController.name}")
+   @TwilioCapabilityToken(client = "#{loginController.name}")
    String flowerToken;
 
    private String name = "twiliofaces";

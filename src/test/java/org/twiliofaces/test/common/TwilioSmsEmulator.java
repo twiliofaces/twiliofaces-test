@@ -9,14 +9,43 @@ import org.apache.commons.httpclient.methods.PostMethod;
 public class TwilioSmsEmulator
 {
 
-   public static PostMethod sendMsgTest(String msg)
+   private PostMethod postMethod;
+   private String url;
+   private HttpClient httpClient;
+
+   public TwilioSmsEmulator()
    {
-      HttpClient httpClient = new HttpClient();
-      String url = "http://jms-twfaces.rhcloud.com/tunnel";
-      PostMethod postMethod = null;
+   }
+
+   public TwilioSmsEmulator(String url)
+   {
+      this.url = url;
+      httpClient = new HttpClient();
+      postMethod = new PostMethod(url);
+   }
+
+   public int getStatusCode()
+   {
+      return postMethod.getStatusCode();
+   }
+
+   public String getEntity()
+   {
       try
       {
-         postMethod = generatePostMethod(url, 1, msg);
+         return postMethod.getResponseBodyAsString();
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+      return "";
+   }
+
+   public TwilioSmsEmulator post()
+   {
+      try
+      {
          httpClient.executeMethod(postMethod);
       }
       catch (HttpException e)
@@ -27,59 +56,59 @@ public class TwilioSmsEmulator
       {
          e.printStackTrace();
       }
-      return postMethod;
-      // if (postMethod.getStatusCode() == HttpStatus.SC_OK)
-      // {
-      // try
-      // {
-      // String resp = postMethod.getResponseBodyAsString();
-      // System.out.println(resp);
-      // return resp;
-      // }
-      // catch (IOException e)
-      // {
-      // // TODO Auto-generated catch block
-      // e.printStackTrace();
-      // }
-      // }
-      // else
-      // {
-      // System.out.println(postMethod.getStatusLine());
-      // }
-      // return null;
-
+      return this;
    }
 
-   private static PostMethod generatePostMethod(String url, int i, String msg)
+   public TwilioSmsEmulator emulateSms(String msg)
    {
-      PostMethod postMethod = new PostMethod(url);
-      String smsSid = "smsSid_" + i;
-      postMethod.addParameter("SmsSid", smsSid);
-      String accountSid = " accountSid_" + i;
-      postMethod.addParameter("AccountSid", accountSid);
-      String from = "from_" + i;
-      postMethod.addParameter("From", from);
-      String to = "to_" + i;
-      postMethod.addParameter("To", to);
-      String body = msg;
-      postMethod.addParameter("Body", body);
-      String fromCity = "fromCity_" + i;
-      postMethod.addParameter("FromCity", fromCity);
-      String fromState = "fromState_" + i;
-      postMethod.addParameter("FromState", fromState);
-      String fromZip = "fromZip_" + i;
-      postMethod.addParameter("FromZip", fromZip);
-      String fromCountry = "fromCountry_" + i;
-      postMethod.addParameter("FromCountry", fromCountry);
-      String toCity = "toCity_" + i;
-      postMethod.addParameter("ToCity", toCity);
-      String toState = "toState_" + i;
-      postMethod.addParameter("ToState", toState);
-      String toZip = "toZip_" + i;
-      postMethod.addParameter("ToZip", toZip);
-      String toCountry = "toCountry_" + i;
-      postMethod.addParameter("ToCountry", toCountry);
+      generatePostMethod(getUrl(), ((Double) Math.random()).intValue(), msg);
+      return post();
+   }
+
+   public void addParameter(String key, String value)
+   {
+      postMethod.addParameter(key, value);
+   }
+
+   public TwilioSmsEmulator parameter(String key, String value)
+   {
+      addParameter(key, value);
+      return this;
+   }
+
+   private void generatePostMethod(String url, int i, String msg)
+   {
+      parameter("SmsSid", "smsSid_" + i);
+      parameter("AccountSid", " accountSid_" + i);
+      parameter("From", "from_" + i);
+      parameter("To", "to_" + i);
+      parameter("Body", msg);
+      parameter("FromCity", "fromCity_" + i);
+      parameter("FromState", "fromState_" + i);
+      parameter("FromZip", "fromZip_" + i);
+      parameter("FromCountry", "fromCountry_" + i);
+      parameter("ToCity", "toCity_" + i);
+      parameter("ToState", "toState_" + i);
+      parameter("ToZip", "toZip_" + i);
+      parameter("ToCountry", "toCountry_" + i);
+   }
+
+   public PostMethod getResponse()
+   {
       return postMethod;
+   }
+
+   public String getUrl()
+   {
+      return url;
+   }
+
+   public TwilioSmsEmulator setUrl(String url)
+   {
+      this.url = url;
+      httpClient = new HttpClient();
+      postMethod = new PostMethod(url);
+      return this;
    }
 
 }

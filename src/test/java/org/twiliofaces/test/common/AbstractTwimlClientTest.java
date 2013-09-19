@@ -27,7 +27,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.twiliofaces.test.jms.SmsReceiverMDB;
 import org.twiliofaces.test.request.TwilioEvaluator;
-import org.twiliofaces.test.service.TwilioStartupTest;
+import org.twiliofaces.test.service.TwilioSingletonSchedulePrimoAccountTest;
 import org.twiliofaces.test.twilioscope.TwilioScopeController;
 
 public abstract class AbstractTwimlClientTest
@@ -43,7 +43,8 @@ public abstract class AbstractTwimlClientTest
    private String twimlFile;
    private String xsdFile;
    private Map<String, String> parameters;
-   private Object deploymentUrl = "http://localhost:8080/twilio/";
+   public static String deploymentUrl = "http://localhost:8080/twilio/";
+   public static String smsTwimlResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>  <Response></Response>";
 
    @Deployment(name = "createDeployment1", order = 1)
    public static Archive<?> createDeployment1()
@@ -61,7 +62,7 @@ public abstract class AbstractTwimlClientTest
                .addPackage(TwilioEvaluator.class.getPackage().getName())
                .addPackage(TwilioScopeController.class.getPackage().getName())
                .addPackage(SmsReceiverMDB.class.getPackage().getName())
-               .addPackage(TwilioStartupTest.class.getPackage().getName());
+               .addPackage(TwilioSingletonSchedulePrimoAccountTest.class.getPackage().getName());
 
       List<String> deps = new ArrayList<String>();
       deps.add("org.twiliofaces:twiliofaces");
@@ -145,7 +146,7 @@ public abstract class AbstractTwimlClientTest
    protected ClientResponse<String> execute() throws Exception
    {
       ClientRequest clientRequest = new ClientRequest(
-               deploymentUrl.toString() + getJsfPage());
+               deploymentUrl + getJsfPage());
       if (getParameters().size() > 0)
       {
          for (String key : getParameters().keySet())
@@ -161,7 +162,7 @@ public abstract class AbstractTwimlClientTest
             Map<String, String> parameters) throws Exception
    {
       ClientRequest clientRequest = new ClientRequest(
-               deploymentUrl.toString() + jsfPage);
+               deploymentUrl + jsfPage);
       if (parameters.size() > 0)
       {
          for (String key : parameters.keySet())

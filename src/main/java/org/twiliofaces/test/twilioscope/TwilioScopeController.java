@@ -6,8 +6,8 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.twiliofaces.annotations.notification.CallSid;
-import org.twiliofaces.annotations.scope.TwilioScope;
+import org.twiliofaces.inject.context.TwilioScope;
+import org.twiliofaces.inject.notification.CallSid;
 
 @TwilioScope
 @Named
