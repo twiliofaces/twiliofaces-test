@@ -5,19 +5,18 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.twiliofaces.cdi.doers.Caller;
-import org.twiliofaces.inject.configuration.TwilioAccount;
-import org.twiliofaces.inject.configuration.qualifier.TwilioAccountQualifier;
+import org.twiliofaces.cdi.extension.TwilioManager;
+import org.twiliofaces.cdi.extension.util.Account;
 
 @Singleton
 public class TwilioSingletonScheduleCallerWithPrimoAccountTest
 {
    Logger logger = Logger.getLogger(getClass().getName());
    @Inject
-   Instance<Caller> caller;
+   TwilioManager twilioManager;
 
    @PostConstruct
    public void start()
@@ -29,18 +28,10 @@ public class TwilioSingletonScheduleCallerWithPrimoAccountTest
             "alle 4 di notte di ogni primo del mese")
    public void test()
    {
-      TwilioAccount twilioAccount = new TwilioAccountQualifier()
-      {
-         private static final long serialVersionUID = 1L;
-
-         public String accountName()
-         {
-            return "primo";
-         }
-      };
-      Caller injectedCaller = caller.select(twilioAccount).get();
-      logger.info("accountSid: " + injectedCaller.getAccountSid());
-      logger.info("authToken: " + injectedCaller.getAuthToken());
-      logger.info("number: " + injectedCaller.getFrom());
+      Account account = twilioManager.getAccount("primo");
+      Caller caller = new Caller(account.getTwilioNumber(), account.getTwilioSid(), account.getTwilioToken());
+      logger.info("accountSid: " + caller.getAccountSid());
+      logger.info("authToken: " + caller.getAuthToken());
+      logger.info("number: " + caller.getFrom());
    }
 }

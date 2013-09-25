@@ -9,12 +9,12 @@ import javax.inject.Inject;
 
 import org.twiliofaces.cdi.doers.Sender;
 
-@Singleton
+//@Singleton
 public class TwilioSingletonScheduleSmSDefaultAccountTest
 {
    Logger logger = Logger.getLogger(getClass().getName());
-   @Inject
-   Sender sender;
+//   @Inject
+//   Sender sender;
 
    @PostConstruct
    public void start()
@@ -22,12 +22,12 @@ public class TwilioSingletonScheduleSmSDefaultAccountTest
       logger.info(" start ");
    }
 
-   @Schedule(hour = "*", minute = "*", second = "*/20", persistent = false, info =
-            "alle 4 di notte di ogni primo del mese")
+   // @Schedule(hour = "*", minute = "*", second = "*/20", persistent = false, info =
+   // "alle 4 di notte di ogni primo del mese")
    public void test()
    {
-      logger.info("accountSid: " + sender.getAccountSid());
-      logger.info("authToken: " + sender.getAuthToken());
-      logger.info("number: " + sender.getFrom());
+      // logger.info("accountSid: " + sender.getAccountSid());
+      // logger.info("authToken: " + sender.getAuthToken());
+      // logger.info("number: " + sender.getFrom());
    }
 }
