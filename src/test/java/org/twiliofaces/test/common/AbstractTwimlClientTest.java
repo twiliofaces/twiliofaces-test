@@ -25,10 +25,10 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.twiliofaces.test.controller.TwilioEvaluator;
+import org.twiliofaces.test.controller.twilioscope.TwilioScopeController;
 import org.twiliofaces.test.jms.SmsReceiverMDB;
-import org.twiliofaces.test.request.TwilioEvaluator;
 import org.twiliofaces.test.service.TwilioSingletonSchedulePrimoAccountTest;
-import org.twiliofaces.test.twilioscope.TwilioScopeController;
 
 public abstract class AbstractTwimlClientTest
 {
@@ -95,6 +95,7 @@ public abstract class AbstractTwimlClientTest
                .addAsWebResource("pages/say.xhtml")
                .addAsWebResource("pages/sip.xhtml")
                .addAsWebResource("pages/sms.xhtml")
+               .addAsWebResource("pages/sms-reply.xhtml")
                .addAsWebResource("pages/jsClient.xhtml")
                .addAsWebInfResource("common/faces-config.xml",
                         "faces-config.xml")

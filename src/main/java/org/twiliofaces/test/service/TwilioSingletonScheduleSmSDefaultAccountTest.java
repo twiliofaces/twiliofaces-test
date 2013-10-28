@@ -1,20 +1,22 @@
+/*
+ * Copyright 2013 twiliofaces.org.
+ *
+ * Licensed under the Eclipse Public License version 1.0, available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.twiliofaces.test.service;
 
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.inject.Inject;
-
-import org.twiliofaces.cdi.doers.Sender;
 
 //@Singleton
 public class TwilioSingletonScheduleSmSDefaultAccountTest
 {
    Logger logger = Logger.getLogger(getClass().getName());
-//   @Inject
-//   Sender sender;
+
+   // @Inject
+   // Sender sender;
 
    @PostConstruct
    public void start()

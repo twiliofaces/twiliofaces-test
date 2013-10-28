@@ -48,6 +48,28 @@ public class AllTwimlTest extends AbstractTwimlClientTest
    }
 
    @Test
+   public void testSmsPageReceiver() throws Exception
+   {
+      setTwimlFile("sms-reply.twiml");
+      Map<String, String> callSidParams = new HashMap<String, String>();
+      callSidParams.put("Body", "ciao come va?");
+      callSidParams.put("MessageSid", "123");
+      callSidParams.put("NumMedia", "1");
+      callSidParams.put("SmsSid", "123");
+      callSidParams.put("From", "+392227000");
+      callSidParams.put("To", "+3922274111");
+      callSidParams.put("AccountSid", "AS1234567890");
+      callSidParams.put("AccountSid", "AS1234567890");
+      callSidParams.put("MediaContentType0", "image/png");
+      callSidParams.put("MediaUrl0", "http://twilio.com/static/image.png");
+      ClientResponse<String> response = execute("sms-reply.twiml", callSidParams);
+      Assert.assertEquals(200, response.getStatus());
+      Assert.assertEquals(getTwiml(), response.getEntity().trim());
+      Assert.assertTrue(validateAgainstXSD());
+      // System.out.println(response.getEntity().trim());
+   }
+
+   @Test
    public void testExtension() throws Exception
    {
 

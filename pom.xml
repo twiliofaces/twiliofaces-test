@@ -19,7 +19,7 @@
 		<maven.eclipse.version>2.8</maven.eclipse.version>
 		<version.jboss.bom>1.0.4.Final</version.jboss.bom>
 		<twilio-java-sdk.version>3.4.0</twilio-java-sdk.version>
-		<twiliofaces.version>1.2.4-SNAPSHOT</twiliofaces.version>
+		<twiliofaces.version>1.2.5-SNAPSHOT</twiliofaces.version>
 	</properties>
 
 	<build>
