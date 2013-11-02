@@ -10,7 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.twiliofaces.inject.configuration.TwilioCapabilityToken;
+import org.twiliofaces.inject.capability.TwilioCapabilityToken;
 
 @RequestScoped
 @Named

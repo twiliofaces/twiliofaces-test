@@ -38,7 +38,7 @@ public class SmsTest
       // params.add(new BasicNameValuePair("MediaUrl", "http://www.example.com/hearts.png"));
 
       String sid2 = sender.from("+14158141829").to("+15558675309").body("Jenny please?! I love you <3")
-               .media("http://www.example.com/hearts.png").send();
+               .mediaUrl("http://www.example.com/hearts.png").simpleSend();
 
       // <Response>
       // <Message>Hello, Mobile Monkey</Message>
